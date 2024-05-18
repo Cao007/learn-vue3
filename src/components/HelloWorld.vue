@@ -1,41 +1,61 @@
-<script setup lang="ts">
-defineProps<{
-  msg: string
-}>()
-</script>
-
 <template>
-  <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>. What's next?
-    </h3>
+  <div>
+    <h1 ref="h1DOM">{{ text }}</h1>
+    <button @click="changeText">修改</button>
   </div>
 </template>
 
-<style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
-}
+<script setup lang="ts">
+import { onActivated, onBeforeMount, onBeforeUnmount, onBeforeUpdate, onDeactivated, onMounted, onUnmounted, onUpdated, ref } from 'vue';
 
-h3 {
-  font-size: 1.2rem;
-}
-
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
+const text = ref('Hello World');
+const h1DOM = ref<HTMLHeadingElement | null>(null);
+const changeText = () => {
+  if (h1DOM.value) {
+    text.value = 'Vue3';
   }
-}
-</style>
+};
+
+// 组件创建时
+onBeforeMount(() => {
+  console.log('onBeforeMount ', h1DOM.value?.innerText, h1DOM.value);
+});
+
+// 组件挂载时
+onMounted(() => {
+  console.log('onMounted ', h1DOM.value?.innerText, h1DOM.value);
+});
+
+// 组件更新前
+onBeforeUpdate(() => {
+  console.log('onBeforeUpdate ', h1DOM.value?.innerText, h1DOM.value);
+});
+
+// 组件更新后
+onUpdated(() => {
+  console.log('onUpdated ', h1DOM.value?.innerText, h1DOM.value);
+});
+
+// 组件卸载前
+onBeforeUnmount(() => {
+  console.log('onBeforeUnmount');
+});
+
+// 组件卸载后
+onUnmounted(() => {
+  console.log('onUnmounted');
+});
+
+// 组件激活时
+onActivated(() => {
+  console.log('onActivated');
+});
+
+// 组件失活时
+onDeactivated(() => {
+  console.log('onDeactivated');
+});
+
+</script>
+
+<style scoped></style>
