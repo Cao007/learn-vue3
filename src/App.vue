@@ -1,72 +1,41 @@
 <template>
-  <div class="tab">
-    <div class="tab-titles">
-      <div class="tab-title-item" v-for="(item, index) in data" :key="item.name"
-        :class="[curIndex === index ? 'active' : '']" @click="handleClick(item, index)">
-        {{ item.name }}
-      </div>
-    </div>
-    <component :is="curComp"></component>
+  <div>
+    <Son>
+      <!-- 具名插槽 -->
+      <template #header>
+        <h1>header</h1>
+      </template>
+
+      <!-- 匿名插槽 -->
+      <template #default>
+        <h2>default</h2>
+      </template>
+
+      <!-- 作用域插槽 -->
+      <template #footer="{ userArr }">
+        <div class="users" v-for="user in userArr" :key="user.name">
+          <ul>
+            <li>
+              <h3>{{ user.name }}</h3>
+            </li>
+            <li>{{ user.age }}</li>
+            <li>{{ user.sex }}</li>
+          </ul>
+        </div>
+      </template>
+
+      <!-- 动态插槽 -->
+      <template #[dynamicSlotName]>
+        <h1>动态插槽</h1>
+      </template>
+    </Son>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, shallowRef, markRaw } from 'vue';
-import TestA from './components/TestA.vue';
-import TestB from './components/TestB.vue';
-import TestC from './components/TestC.vue';
-
-// 渲染的组件和数据
-const data = ref([
-  {
-    name: 'TestA',
-    comp: markRaw(TestA)
-  },
-  {
-    name: 'TestB',
-    comp: markRaw(TestB)
-  },
-  {
-    name: 'TestC',
-    comp: markRaw(TestC)
-  }
-])
-
-// 当前组件和下标
-let curComp = shallowRef(TestA)
-let curIndex = ref(0)
-
-// 点击切换组件
-const handleClick = (item: any, index: number) => {
-  curComp.value = item.comp
-  curIndex.value = index
-}
+import { ref } from 'vue';
+import Son from './components/Son.vue';
+const dynamicSlotName = ref('header');
 </script>
 
-<style scoped lang="less">
-.tab {
-  width: 400px;
-  height: 200px;
-
-  .tab-titles {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-
-    .tab-title-item {
-      border: 1px solid #ccc;
-      width: 100px;
-      height: 100%;
-      text-align: center;
-      cursor: pointer;
-    }
-  }
-}
-
-.active {
-  background-color: pink;
-}
-</style>
+<style scoped></style>
