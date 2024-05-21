@@ -1,17 +1,24 @@
 <template>
-    <div class="tab-content">TestB</div>
+    <div>
+        <h2>TestB</h2>
+        <input type="text" v-model="inputText">
+        <p>{{ inputText }}</p>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onActivated, onDeactivated } from 'vue';
 
+let inputText = ref('');
+
+onActivated(() => {
+    console.log('TestB onActivated');
+})
+
+onDeactivated(() => {
+    console.log('TestB onDeactivated');
+})
 
 </script>
 
-<style scoped>
-.tab-content {
-    width: 100%;
-    height: 160px;
-    border: 1px solid #ccc;
-}
-</style>
+<style scoped></style>
