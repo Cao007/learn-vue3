@@ -1,41 +1,31 @@
 <template>
   <div>
-    <Son>
-      <!-- 具名插槽 -->
-      <template #header>
-        <h1>header</h1>
-      </template>
-
-      <!-- 匿名插槽 -->
-      <template #default>
-        <h2>default</h2>
-      </template>
-
-      <!-- 作用域插槽 -->
-      <template #footer="{ userArr }">
-        <div class="users" v-for="user in userArr" :key="user.name">
-          <ul>
-            <li>
-              <h3>{{ user.name }}</h3>
-            </li>
-            <li>{{ user.age }}</li>
-            <li>{{ user.sex }}</li>
-          </ul>
-        </div>
-      </template>
-
-      <!-- 动态插槽 -->
-      <template #[dynamicSlotName]>
-        <h1>动态插槽</h1>
-      </template>
-    </Son>
+    <AsyncComp />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import Son from './components/Son.vue';
-const dynamicSlotName = ref('header');
+import { ref, defineAsyncComponent } from 'vue';
+import TestB from './components/TestB.vue'
+import TestC from './components/TestC.vue'
+
+// 异步组件
+const AsyncComp = defineAsyncComponent({
+  // 加载函数
+  loader: () => import('./components/TestA.vue'),
+
+  // 加载异步组件时使用的组件
+  loadingComponent: TestB,
+  // 展示加载组件前的延迟时间，默认为 200ms
+  delay: 20000,
+
+  // 加载失败后展示的组件
+  errorComponent: TestC,
+  // 如果提供了一个 timeout 时间限制，并超时了
+  // 也会显示这里配置的报错组件，默认值是：Infinity
+  timeout: 3000
+})
+
 </script>
 
 <style scoped></style>
