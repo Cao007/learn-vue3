@@ -1,31 +1,43 @@
 <template>
-  <div>
-    <AsyncComp />
+  <div class="app-container">
+    <div class="box1">
+      <Teleport to="body" :disabled="disabled">
+        <div class="box2"></div>
+      </Teleport>
+    </div>
+    <button @click="handleClick">传送</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineAsyncComponent } from 'vue';
-import TestB from './components/TestB.vue'
-import TestC from './components/TestC.vue'
+import { ref } from 'vue';
+let disabled = ref(true)
 
-// 异步组件
-const AsyncComp = defineAsyncComponent({
-  // 加载函数
-  loader: () => import('./components/TestA.vue'),
-
-  // 加载异步组件时使用的组件
-  loadingComponent: TestB,
-  // 展示加载组件前的延迟时间，默认为 200ms
-  delay: 20000,
-
-  // 加载失败后展示的组件
-  errorComponent: TestC,
-  // 如果提供了一个 timeout 时间限制，并超时了
-  // 也会显示这里配置的报错组件，默认值是：Infinity
-  timeout: 3000
-})
+const handleClick = () => {
+  disabled.value = !disabled.value
+}
 
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+body {
+  position: relative;
+}
+
+.box1 {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: red;
+}
+
+.box2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background-color: blue;
+}
+</style>
