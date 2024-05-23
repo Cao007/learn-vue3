@@ -1,27 +1,24 @@
 <template>
     <div>
-        <h1>Son组件</h1>
-        <button @click="changeColor">在Son组件中 修改color的值</button>
+        <h1>GrandSon组件</h1>
+        <button @click="changeColor">在GrandSon组件中 修改color的值</button>
         <div class="box"></div>
-        <GrandSon></GrandSon>
     </div>
 </template>
 
 <script setup lang="ts">
 import { inject, ref } from 'vue';
-import GrandSon from './GrandSon.vue';
 
 const color: any = inject('color')
 const changeColor = () => {
     color.value = 'red'
 }
-
 </script>
 
 <style scoped>
 .box {
-    width: 200px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     background-color: v-bind(color);
 }
 </style>

@@ -1,23 +1,15 @@
 <template>
   <div>
-    <button @click="activeComponent = TestA">TestA</button>
-    <button @click="activeComponent = TestB">TestB</button>
-
-    <!-- 
-      缓存动态组件
-     -->
-    <KeepAlive>
-      <component :is="activeComponent"></component>
-    </KeepAlive>
+    <Son></Son>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, shallowRef } from 'vue';
-import TestA from './components/TestA.vue';
-import TestB from './components/TestB.vue';
+import { provide, readonly, ref } from 'vue';
+import Son from './components/Son.vue';
 
-let activeComponent = shallowRef(TestA)
+let color = ref('pink');
+provide('color', readonly(color));
 
 </script>
 
