@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue';
 import GrandSon from './GrandSon.vue';
 
 const color: any = inject('color')

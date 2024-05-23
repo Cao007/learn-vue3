@@ -7,8 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue';
-
 const color: any = inject('color')
 const changeColor = () => {
     color.value = 'red'
