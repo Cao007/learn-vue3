@@ -1,22 +1,11 @@
 <template>
-    <div>
-        <h1>GrandSon组件</h1>
-        <button @click="changeColor">在GrandSon组件中 修改color的值</button>
-        <div class="box"></div>
-    </div>
+    <div></div>
 </template>
 
 <script setup lang="ts">
-const color: any = inject('color')
-const changeColor = () => {
-    color.value = 'red'
-}
+import { ref } from 'vue';
+
+
 </script>
 
-<style scoped>
-.box {
-    width: 100px;
-    height: 100px;
-    background-color: v-bind(color);
-}
-</style>
+<style scoped></style>
