@@ -19,7 +19,7 @@ const emit1 = () => {
   instance?.proxy?.$bus.emit('on-num', 100);
 }
 const emit2 = () => {
-  instance?.proxy?.$bus.emit('on-name', '张三');
+  instance?.proxy?.$bus.emit('on-name', '张三123');
 }
 </script>
 
