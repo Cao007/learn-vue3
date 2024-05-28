@@ -1,26 +1,18 @@
 <template>
   <div>
-    <h1>App</h1>
-    <button @click="emit1">App-emit1</button>
-    <button @click="emit2">App-emit2</button>
-    <Son1></Son1>
-    <Son2></Son2>
+    <button @click="toggleDark()">切换主题</button>
+    <p>当前主题:{{ isDark ? '深色' : '浅色' }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
-import Son1 from './components/Son1.vue';
-import Son2 from './components/Son2.vue';
+import { useDark, useToggle } from '@vueuse/core'
 
-// 1.获取当前组件实例
-const instance: any = getCurrentInstance();
-const emit1 = () => {
-  // 2.通过$bus属性上的emit方法触发事件
-  instance?.proxy?.$bus.emit('on-num', 100);
-}
-const emit2 = () => {
-  instance?.proxy?.$bus.emit('on-name', '张三123');
-}
+// 响应式深色主题偏好
+// vueuse-color-scheme本地存储到localStorage
+let isDark = useDark()
+let toggleDark = useToggle(isDark)
+
 </script>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
