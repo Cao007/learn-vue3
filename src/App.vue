@@ -1,18 +1,19 @@
 <template>
-  <div>
-    <button @click="toggleDark()">切换主题</button>
-    <p>当前主题:{{ isDark ? '深色' : '浅色' }}</p>
-  </div>
+    <el-input class="ipt" v-model="input" placeholder="Please input" />
 </template>
 
-<script setup lang="ts">
-import { useDark, useToggle } from '@vueuse/core'
-
-// 响应式深色主题偏好
-// vueuse-color-scheme本地存储到localStorage
-let isDark = useDark()
-let toggleDark = useToggle(isDark)
-
+<script lang="ts" setup>
+import { ref } from 'vue'
+const input = ref('')
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="less">
+.ipt {
+    width: 300px;
+    height: 50px;
+
+    :deep(.el-input__inner) {
+        background-color: pink;
+    }
+}
+</style>
